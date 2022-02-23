@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require "pry"
 def game_hash
   {
     home: {
@@ -126,4 +127,73 @@ def game_hash
   }
 end
 
-# Write code here
+def find_player_by_name(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+  player_hash = all_players.find { |player_hash| player_hash[:player_name] == name }
+end
+  
+
+def num_points_scored(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+  player_hash = all_players.find { |player_hash| player_hash[:player_name] == name }
+  player_hash[:points]
+end
+
+# or 
+
+# def num_points_scored(player_name)
+#   game.hash.each do |home_or_away, team_hash|
+#     player = team_hash[:players].find do |player_hash|
+#       player_hash[:player_name] == player_name
+#     end
+#     return player[:points]
+#   end
+# end
+
+def shoe_size(name)
+  player_hash = find_player_by_name(name)
+  player_hash[:shoe]
+end
+
+def find_team_by_name(name)
+ key_value_pair = game_hash.find { |k, v| v[:team_name] == name }
+ key_value_pair[1]
+end
+
+def team_colors(team_name)
+  team_hash = find_team_by_name(team_name)
+  team_hash[:colors]
+end
+
+def team_names
+  result = game_hash.map { |k, team_hash| team_hash[:team_name] }
+end
+
+def player_numbers(team_name)
+  team_hash = find_team_by_name(team_name)
+  team_hash[:players].map { |player_hash| player_hash[:number] }
+end
+
+def player_stats(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+  player_hash = all_players.find { |player_hash| player_hash[:player_name] == name }
+end
+
+def big_shoe_rebounds
+  
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+  player_hash = all_players[0]
+  all_players.each do |player_info|
+    player_hash = player_info if player_info[:shoe] > player_hash[:shoe]
+  end
+  player_hash[:rebounds]
+end
+
